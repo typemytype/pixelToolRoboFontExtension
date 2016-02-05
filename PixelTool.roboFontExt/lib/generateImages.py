@@ -1,0 +1,44 @@
+from AppKit import *
+from defcon.objects.glyph import addRepresentationFactory
+
+from settings import *
+
+def imageFactory(glyph, font, gridSize):
+    gridSize = float(gridSize)
+    bounds = glyph.bounds
+    if bounds is None:
+        minx = miny = maxx = maxy = 0
+    else:
+        minx, miny, maxx, maxy = glyph.bounds
+    boundsWidth = maxx - minx
+    scaledDescender = round(max(abs(miny), abs(font.info.descender)) / gridSize)
+    scaledAscender = round(max(maxy, font.info.ascender, font.info.capHeight) / gridSize)
+    em = scaledDescender + scaledAscender
+    
+    w = round(max(glyph.width, boundsWidth) / gridSize)
+    h = round(em)
+    
+    xShift = 0
+    if minx < 0:
+        xShift = abs(minx) / gridSize
+    
+    image = NSImage.alloc().initWithSize_((w, h))
+    image.lockFocus()
+    
+    t = NSAffineTransform.alloc().init()
+    t.translateXBy_yBy_(xShift, scaledDescender)
+    t.scaleBy_(1/gridSize)
+    t.concat()
+
+    NSColor.blackColor().set()
+    path = glyph.getRepresentation("defconAppKit.NSBezierPath")
+    path.fill()
+
+    image.unlockFocus()
+    return image
+
+
+def AddPixelToolRepresentationFactory():
+    addRepresentationFactory("com.typemytype.pixelImageFactory", imageFactory)
+
+

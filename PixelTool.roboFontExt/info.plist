@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>addToMenu</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>generateImageFont.py</string>
+			<key>preferredName</key>
+			<string>Export Font to Bitmaps</string>
+			<key>shortKey</key>
+			<string></string>
+		</dict>
+	</array>
+	<key>developer</key>
+	<string>TypeMyType</string>
+	<key>developerURL</key>
+	<string>http://www.typemytype.com</string>
+	<key>html</key>
+	<true/>
+	<key>launchAtStartUp</key>
+	<integer>1</integer>
+	<key>mainScript</key>
+	<string>PixelTool.py</string>
+	<key>name</key>
+	<string>Pixel Tool</string>
+	<key>requiresVersionMajor</key>
+	<string>1</string>
+	<key>requiresVersionMinor</key>
+	<string>6</string>
+	<key>timeStamp</key>
+	<real>1318946465.962729</real>
+	<key>version</key>
+	<string>1.2</string>
+	<key>com.robofontmechanic.Mechanic</key>
+	<dict>
+		<key>repository</key>
+		<string>typemytype/pixelToolRoboFontExtension</string>
+		<key>summary</key>
+		<string>Draw with pixels.</string>
+	</dict
+</dict>
+</plist>
