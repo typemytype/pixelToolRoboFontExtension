@@ -32,13 +32,13 @@
 	<key>timeStamp</key>
 	<real>1318946465.962729</real>
 	<key>version</key>
-	<string>1.2</string>
+	<string>1.3</string>
 	<key>com.robofontmechanic.Mechanic</key>
 	<dict>
 		<key>repository</key>
 		<string>typemytype/pixelToolRoboFontExtension</string>
 		<key>summary</key>
 		<string>Draw with pixels.</string>
-	</dict
+	</dict>
 </dict>
 </plist>
