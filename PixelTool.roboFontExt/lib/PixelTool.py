@@ -161,7 +161,7 @@ class PixelTool(BaseEventTool):
     def mouseUp(self, point):
         glyph = self.getGlyph()
         glyph.performUndo()
-        glyph.update()
+        glyph.changed()
         self.actionMode = ADD_ACTION_MODE
         
     def findObjectInGlyphForPoint(self, glyph, point):
@@ -177,7 +177,7 @@ class PixelTool(BaseEventTool):
                     break
         else:
             for contour in glyph:
-                if contour.pointInside(point):
+                if contour.pointInside((point.x, point.y)):
                     found = contour
                     break
         return found
