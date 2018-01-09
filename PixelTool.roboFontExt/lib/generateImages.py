@@ -1,5 +1,6 @@
 from AppKit import *
-from defcon.objects.glyph import addRepresentationFactory
+
+from mojo.roboFont import version as RFVersion
 
 from settings import *
 
@@ -14,17 +15,17 @@ def imageFactory(glyph, font, gridSize):
     scaledDescender = round(max(abs(miny), abs(font.info.descender)) / gridSize)
     scaledAscender = round(max(maxy, font.info.ascender, font.info.capHeight) / gridSize)
     em = scaledDescender + scaledAscender
-    
+
     w = round(max(glyph.width, boundsWidth) / gridSize)
     h = round(em)
-    
+
     xShift = 0
     if minx < 0:
         xShift = abs(minx) / gridSize
-    
+
     image = NSImage.alloc().initWithSize_((w, h))
     image.lockFocus()
-    
+
     t = NSAffineTransform.alloc().init()
     t.translateXBy_yBy_(xShift, scaledDescender)
     t.scaleBy_(1/gridSize)
@@ -39,6 +40,11 @@ def imageFactory(glyph, font, gridSize):
 
 
 def AddPixelToolRepresentationFactory():
-    addRepresentationFactory("com.typemytype.pixelImageFactory", imageFactory)
+    if RFVersion < "2.0":
+        from defcon.objects.glyph import addRepresentationFactory
+        addRepresentationFactory("com.typemytype.pixelImageFactory", imageFactory)
+    else:
+        from defcon import Glyph, registerRepresentationFactory
+        registerRepresentationFactory(Glyph, "com.typemytype.pixelImageFactory", imageFactory)
 
 
