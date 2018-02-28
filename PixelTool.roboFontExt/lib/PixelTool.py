@@ -5,14 +5,16 @@ import os
 
 from fontTools.misc.arrayTools import pointInRect
 
-try:
-    from ufoLib.pointPen import ReverseContourPointPen
-except:
-    from robofab.pens.reverseContourPointPen import ReverseContourPointPen
 from mojo.events import BaseEventTool, installTool
-from mojo.roboFont import CreateCursor
-
+from mojo.roboFont import CreateCursor, version
 from mojo.extensions import getExtensionDefault, setExtensionDefault, ExtensionBundle
+
+# RF3
+if version >= "3.0.0":
+    from ufoLib.pointPen import ReverseContourPointPen
+# RF1
+else:
+    from robofab.pens.reverseContourPointPen import ReverseContourPointPen
 
 from lib.tools.notifications import PostNotification
 from lib.tools import bezierTools
@@ -163,7 +165,12 @@ class PixelTool(BaseEventTool):
     def mouseUp(self, point):
         glyph = self.getGlyph()
         glyph.performUndo()
-        glyph.changed()
+        # RF3
+        if version >= "3.0.0":
+            glyph.changed()
+        # RF1
+        else:
+            glyph.update()
         self.actionMode = ADD_ACTION_MODE
 
     def findObjectInGlyphForPoint(self, glyph, point):
