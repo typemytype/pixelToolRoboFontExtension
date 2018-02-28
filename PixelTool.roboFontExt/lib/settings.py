@@ -5,7 +5,7 @@ RECT_MODE = "Rect"
 OVAL_MODE = "Oval"
 COMPONENT_MODE = "Component"
 
-USEGRID_DEFAULT_KEY = "com.typemytype.pixelTool.useGrid" 
+USEGRID_DEFAULT_KEY = "com.typemytype.pixelTool.useGrid"
 
 GRID_DEFAULTS_KEY = "com.typemytype.pixelTool.gridSize"
 DRAWING_DEFAULTS_KEY = "com.typemytype.pixelTool.drawingMode"

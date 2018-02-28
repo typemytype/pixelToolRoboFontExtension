@@ -2,7 +2,10 @@ from AppKit import *
 import os
 import vanilla
 from defconAppKit.windows.progressWindow import  ProgressWindow
-from robofab.glifLib import glyphNameToFileName
+try:
+    from ufoLib.glifLib import glyphNameToFileName
+except:
+    from robofab.glifLib import glyphNameToFileName
 
 from mojo.roboFont import CurrentFont
 from mojo.extensions import getExtensionDefault
@@ -10,7 +13,7 @@ from mojo.extensions import getExtensionDefault
 from settings import *
 
 class GenerateImageFont(object):
-    
+
     def __init__(self):
         self.font = CurrentFont()
         if self.font is None:
@@ -20,19 +23,19 @@ class GenerateImageFont(object):
             return
         self.window = doc.getMainWindow()
         vanilla.dialogs.getFolder(parentWindow=self.window, resultCallback=self.generate)
-        
+
     def generate(self, saveDir):
         if not saveDir:
             return
-        
+
         saveDir = saveDir[0]
-        
+
         f = self.font.naked()
-        
+
         glyphs = [g for g in f if not g.template]
-        
+
         progress = ProgressWindow("Generating .png's", tickCount=len(glyphs), parentWindow=self.window)
-        
+
         gridSize = int(getExtensionDefault(GRID_DEFAULTS_KEY, 50))
 
         for g in glyphs:
@@ -41,7 +44,7 @@ class GenerateImageFont(object):
             else:
                 fileName = glyphNameToFileName(g.name, f)
             path = os.path.join(saveDir, "%s.png" %fileName)
-    
+
             image = g.getRepresentation("com.typemytype.pixelImageFactory", gridSize=gridSize)
             data = image.TIFFRepresentation()
             imageRep = NSBitmapImageRep.imageRepWithData_(data)
