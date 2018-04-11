@@ -4,8 +4,11 @@ from mojo.roboFont import version as RFVersion
 
 from settings import *
 
-def imageFactory(glyph, font, gridSize):
+
+def imageFactory(glyph, font=None, gridSize=100):
     gridSize = float(gridSize)
+    if font is None:
+        font = glyph.font
     bounds = glyph.bounds
     if bounds is None:
         minx = miny = maxx = maxy = 0
@@ -28,7 +31,7 @@ def imageFactory(glyph, font, gridSize):
 
     t = NSAffineTransform.alloc().init()
     t.translateXBy_yBy_(xShift, scaledDescender)
-    t.scaleBy_(1/gridSize)
+    t.scaleBy_(1 / gridSize)
     t.concat()
 
     NSColor.blackColor().set()
@@ -46,5 +49,3 @@ def AddPixelToolRepresentationFactory():
     else:
         from defcon import Glyph, registerRepresentationFactory
         registerRepresentationFactory(Glyph, "com.typemytype.pixelImageFactory", imageFactory)
-
-

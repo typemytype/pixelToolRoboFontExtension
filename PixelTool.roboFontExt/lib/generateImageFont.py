@@ -1,16 +1,17 @@
 from AppKit import *
 import os
 import vanilla
-from defconAppKit.windows.progressWindow import  ProgressWindow
+from defconAppKit.windows.progressWindow import ProgressWindow
 try:
     from ufoLib.glifLib import glyphNameToFileName
-except:
+except ImportError:
     from robofab.glifLib import glyphNameToFileName
 
 from mojo.roboFont import CurrentFont
 from mojo.extensions import getExtensionDefault
 
 from settings import *
+
 
 class GenerateImageFont(object):
 
@@ -40,10 +41,10 @@ class GenerateImageFont(object):
 
         for g in glyphs:
             if g.unicode is not None:
-                fileName =  "%04X" %g.unicode
+                fileName = "%04X" % g.unicode
             else:
                 fileName = glyphNameToFileName(g.name, f)
-            path = os.path.join(saveDir, "%s.png" %fileName)
+            path = os.path.join(saveDir, "%s.png" % fileName)
 
             image = g.getRepresentation("com.typemytype.pixelImageFactory", gridSize=gridSize)
             data = image.TIFFRepresentation()
