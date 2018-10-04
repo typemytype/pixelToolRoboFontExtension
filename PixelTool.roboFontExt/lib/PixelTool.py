@@ -34,6 +34,7 @@ pixelToolbarIcon = pixelBundle.get("pixelToolbarIcon")
 def _roundPoint(x, y):
     return int(round(x)), int(round(y))
 
+
 class GridSettingsMenu(object):
 
     def __init__(self, tool, event, view):
@@ -42,7 +43,6 @@ class GridSettingsMenu(object):
         self.drawingChoices = [RECT_MODE, OVAL_MODE, COMPONENT_MODE]
 
         self.view = vanilla.Group((0, 0, 0, 0))
-
 
         self.view.gridText = vanilla.TextBox((10, 12, 100, 22), "Pixel Size:")
         self.view.gridInput = vanilla.EditText((120, 10, -10, 22), self.tool.size, callback=self.gridInputCallback)
@@ -54,7 +54,6 @@ class GridSettingsMenu(object):
         self.view.componentName = vanilla.EditText((120, 113, -10, 22), self.tool.componentName, callback=self.drawingModeCallback)
 
         self.view.componentName.show(self.tool.drawingMode == COMPONENT_MODE)
-
 
         self.view.useGrid = vanilla.CheckBox((11, 145, -10, 22), "Use Grid", value=self.tool.useGrid, callback=self.drawingModeCallback)
 
@@ -70,10 +69,10 @@ class GridSettingsMenu(object):
 
     def gridInputCallback(self, sender):
         value = sender.get()
-        ## must be int
+        # must be int
         try:
             value = int(value)
-        except:
+        except Exception:
             value = -1
 
         if value <= 0:
@@ -105,6 +104,7 @@ class GridSettingsMenu(object):
         self.tool.useGrid = useGrid
         setExtensionDefault(USEGRID_DEFAULT_KEY, useGrid)
 
+
 class PixelTool(BaseEventTool):
 
     def _get_size(self):
@@ -131,17 +131,16 @@ class PixelTool(BaseEventTool):
 
         found = self.findObjectInGlyphForPoint(glyph, point)
 
-        glyph.prepareUndo("%s Shapes" %self.actionMode)
+        glyph.prepareUndo("%s Shapes" % self.actionMode)
         if found is not None:
-            ## remove contour if we found one
+            # remove contour if we found one
             self.actionMode = REMOVE_ACTION_MODE
             if self.drawingMode == COMPONENT_MODE:
                 glyph.removeComponent(found)
             else:
                 glyph.removeContour(found)
-
         else:
-            ## add a square around a point
+            # add a square around a point
             self.actionMode = ADD_ACTION_MODE
             self.addShapeInGlyphForPoint(glyph, point)
 
@@ -161,7 +160,6 @@ class PixelTool(BaseEventTool):
         elif self.actionMode == ADD_ACTION_MODE and found is None:
             self.addShapeInGlyphForPoint(glyph, point)
 
-
     def mouseUp(self, point):
         glyph = self.getGlyph()
         glyph.performUndo()
@@ -177,7 +175,6 @@ class PixelTool(BaseEventTool):
         x, y = point.x, point.y
         found = None
         if self.drawingMode == COMPONENT_MODE:
-            size = self.size
             for component in glyph.components:
                 if component.baseGlyph != self.componentName:
                     continue
@@ -199,8 +196,8 @@ class PixelTool(BaseEventTool):
             x = int(floor(point.x / float(w))) * w
             y = int(floor(point.y / float(h))) * h
         else:
-            x = point.x - w*.5
-            y = point.y - h*.5
+            x = point.x - w * .5
+            y = point.y - h * .5
 
         pen = glyph.getPointPen()
         if glyph.preferredSegmentType == "qcurve":
@@ -217,8 +214,8 @@ class PixelTool(BaseEventTool):
 
         elif self.drawingMode == OVAL_MODE:
 
-            hw = w/2.
-            hh = h/2.
+            hw = w / 2.
+            hh = h / 2.
 
             r = .55
             segmentType = glyph.preferredSegmentType
@@ -227,26 +224,25 @@ class PixelTool(BaseEventTool):
 
             pen.beginPath()
             pen.addPoint(_roundPoint(x + hw, y), segmentType)
-            pen.addPoint(_roundPoint(x + hw + hw*r, y))
-            pen.addPoint(_roundPoint(x + w, y + hh - hh*r))
+            pen.addPoint(_roundPoint(x + hw + hw * r, y))
+            pen.addPoint(_roundPoint(x + w, y + hh - hh * r))
 
             pen.addPoint(_roundPoint(x + w, y + hh), segmentType)
-            pen.addPoint(_roundPoint(x + w, y + hh + hh*r))
-            pen.addPoint(_roundPoint(x + hw + hw*r, y + h))
+            pen.addPoint(_roundPoint(x + w, y + hh + hh * r))
+            pen.addPoint(_roundPoint(x + hw + hw * r, y + h))
 
             pen.addPoint(_roundPoint(x + hw, y + h), segmentType)
-            pen.addPoint(_roundPoint(x + hw - hw*r, y + h))
-            pen.addPoint(_roundPoint(x, y + hh + hh*r))
+            pen.addPoint(_roundPoint(x + hw - hw * r, y + h))
+            pen.addPoint(_roundPoint(x, y + hh + hh * r))
 
             pen.addPoint(_roundPoint(x, y + hh), segmentType)
-            pen.addPoint(_roundPoint(x, y + hh - hh*r))
-            pen.addPoint(_roundPoint(x + hw - hw*r, y))
+            pen.addPoint(_roundPoint(x, y + hh - hh * r))
+            pen.addPoint(_roundPoint(x + hw - hw * r, y))
 
             pen.endPath()
 
         elif self.drawingMode == COMPONENT_MODE and self.componentName and self.componentName != glyph.name:
             pen.addComponent(self.componentName, [1, 0, 0, 1, x, y])
-
 
     def getDefaultCursor(self):
         return pixelCursor

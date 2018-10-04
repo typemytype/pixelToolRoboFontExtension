@@ -26,9 +26,9 @@
 	<key>name</key>
 	<string>Pixel Tool</string>
 	<key>requiresVersionMajor</key>
-	<string>1</string>
+	<string>3</string>
 	<key>requiresVersionMinor</key>
-	<string>7</string>
+	<string>0</string>
 	<key>timeStamp</key>
 	<real>1318946465.962729</real>
 	<key>version</key>
