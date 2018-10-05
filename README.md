@@ -1,7 +1,9 @@
 # PixelTool
 
 
-A tool to draw with rectangels, ovals or component references.
+A tool to draw with rectangles, ovals or component references.
 
-Based on the size of the grid, see left mouse down for settings.
+![](PixelTool.png)
 
+- the size of the pixel is based on the current grid size
+- left-click to open a window with settings
