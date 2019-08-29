@@ -11,7 +11,7 @@ from mojo.extensions import getExtensionDefault, setExtensionDefault, ExtensionB
 
 # RF3
 if version >= "3.0.0":
-    from ufoLib.pointPen import ReverseContourPointPen
+    from fontTools.pens.pointPen import ReverseContourPointPen
 # RF1
 else:
     from robofab.pens.reverseContourPointPen import ReverseContourPointPen

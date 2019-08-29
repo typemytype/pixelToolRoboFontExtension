@@ -3,7 +3,7 @@ import os
 import vanilla
 from defconAppKit.windows.progressWindow import ProgressWindow
 try:
-    from ufoLib.glifLib import glyphNameToFileName
+    from fontTools.ufoLib.glifLib import glyphNameToFileName
 except ImportError:
     from robofab.glifLib import glyphNameToFileName
 
