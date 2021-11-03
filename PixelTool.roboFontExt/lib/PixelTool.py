@@ -1,4 +1,4 @@
-from AppKit import *
+import AppKit
 from math import floor
 import vanilla
 import os
@@ -48,14 +48,14 @@ class GridSettingsMenu(object):
         self.view.useGrid = vanilla.CheckBox((11, 125, -10, 22), "Use Grid", value=self.tool.useGrid, callback=self.drawingModeCallback)
 
         nsView = self.view.getNSView()
-        nsView.setFrame_(NSMakeRect(0, 0, 185, 155))
+        nsView.setFrame_(AppKit.NSMakeRect(0, 0, 185, 155))
 
-        menu = NSMenu.alloc().init()
-        settingsItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_("doodle.guideView", None, "")
+        menu = AppKit.NSMenu.alloc().init()
+        settingsItem = AppKit.NSMenuItem.alloc().initWithTitle_action_keyEquivalent_("doodle.guideView", None, "")
         settingsItem.setView_(nsView)
         menu.addItem_(settingsItem)
 
-        NSMenu.popUpContextMenu_withEvent_forView_(menu, event, view)
+        AppKit.NSMenu.popUpContextMenu_withEvent_forView_(menu, event, view)
 
     def gridInputCallback(self, sender):
         value = sender.get()
