@@ -1,4 +1,4 @@
-from AppKit import *
+import AppKit
 import os
 import vanilla
 from defconAppKit.windows.progressWindow import ProgressWindow
@@ -48,8 +48,8 @@ class GenerateImageFont(object):
 
             image = g.getRepresentation("com.typemytype.pixelImageFactory", gridSize=gridSize)
             data = image.TIFFRepresentation()
-            imageRep = NSBitmapImageRep.imageRepWithData_(data)
-            pngData = imageRep.representationUsingType_properties_(NSPNGFileType, None)
+            imageRep = AppKit.NSBitmapImageRep.imageRepWithData_(data)
+            pngData = imageRep.representationUsingType_properties_(AppKit.NSPNGFileType, None)
             pngData.writeToFile_atomically_(path, False)
             progress.update()
         progress.close()

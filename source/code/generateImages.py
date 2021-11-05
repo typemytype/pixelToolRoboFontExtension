@@ -1,4 +1,4 @@
-from AppKit import *
+import AppKit
 
 from mojo.roboFont import version as RFVersion
 
@@ -26,15 +26,15 @@ def imageFactory(glyph, font=None, gridSize=100):
     if minx < 0:
         xShift = abs(minx) / gridSize
 
-    image = NSImage.alloc().initWithSize_((w, h))
+    image = AppKit.NSImage.alloc().initWithSize_((w, h))
     image.lockFocus()
 
-    t = NSAffineTransform.alloc().init()
+    t = AppKit.NSAffineTransform.alloc().init()
     t.translateXBy_yBy_(xShift, scaledDescender)
     t.scaleBy_(1 / gridSize)
     t.concat()
 
-    NSColor.blackColor().set()
+    AppKit.NSColor.blackColor().set()
     path = glyph.getRepresentation("defconAppKit.NSBezierPath")
     path.fill()
 
