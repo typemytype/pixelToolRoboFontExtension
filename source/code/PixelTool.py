@@ -114,7 +114,7 @@ class PixelTool(BaseEventTool):
         self.drawingMode = getExtensionDefault(DRAWING_DEFAULTS_KEY, RECT_MODE)
         self.componentName = getExtensionDefault(COMPONENT_DEFAULT_KEY, "")
         self.useGrid = getExtensionDefault(USEGRID_DEFAULT_KEY, True)
-
+    
     def mouseDown(self, point, offset):
 
         glyph = self.getGlyph()
@@ -136,7 +136,7 @@ class PixelTool(BaseEventTool):
 
     def rightMouseDown(self, point, event):
         GridSettingsMenu(self, event, self.getNSView())
-
+    
     def mouseDragged(self, point, delta):
         glyph = self.getGlyph()
         found = self.findObjectInGlyphForPoint(glyph, point)
@@ -163,13 +163,12 @@ class PixelTool(BaseEventTool):
             for component in glyph.components:
                 if component.baseGlyph != self.componentName:
                     continue
-                rect = component.box
-                if pointInRect((x, y), rect):
+                if pointInRect((x, y), component.bounds):
                     found = component
                     break
         else:
             for contour in glyph:
-                if contour.pointInside((x, y)):
+                if pointInRect((x, y), contour.bounds) and contour.pointInside((x, y)):
                     found = contour
                     break
         return found
