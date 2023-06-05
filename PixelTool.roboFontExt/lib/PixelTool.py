@@ -34,6 +34,8 @@ class GridSettingsMenu(object):
         self.drawingChoices = [RECT_MODE, OVAL_MODE, COMPONENT_MODE]
 
         self.view = vanilla.Group((0, 0, 0, 0))
+        nsView = self.view.getNSView()
+        nsView.setFrame_(AppKit.NSMakeRect(0, 0, 185, 155))
 
         self.view.gridText = vanilla.TextBox((10, 12, 100, 22), "Pixel Size:")
         self.view.gridInput = vanilla.EditText((120, 10, -10, 22), self.tool.size, callback=self.gridInputCallback)
@@ -46,9 +48,6 @@ class GridSettingsMenu(object):
         self.view.componentName.show(self.tool.drawingMode == COMPONENT_MODE)
 
         self.view.useGrid = vanilla.CheckBox((11, 125, -10, 22), "Use Grid", value=self.tool.useGrid, callback=self.drawingModeCallback)
-
-        nsView = self.view.getNSView()
-        nsView.setFrame_(AppKit.NSMakeRect(0, 0, 185, 155))
 
         menu = AppKit.NSMenu.alloc().init()
         settingsItem = AppKit.NSMenuItem.alloc().initWithTitle_action_keyEquivalent_("doodle.guideView", None, "")
@@ -163,13 +162,12 @@ class PixelTool(BaseEventTool):
             for component in glyph.components:
                 if component.baseGlyph != self.componentName:
                     continue
-                rect = component.box
-                if pointInRect((x, y), rect):
+                if pointInRect((x, y), component.bounds):
                     found = component
                     break
         else:
             for contour in glyph:
-                if contour.pointInside((x, y)):
+                if pointInRect((x, y), contour.bounds) and contour.pointInside((x, y)):
                     found = contour
                     break
         return found
