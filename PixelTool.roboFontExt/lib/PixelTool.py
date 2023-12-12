@@ -35,7 +35,7 @@ class GridSettingsMenu(object):
 
         self.view = vanilla.Group((0, 0, 0, 0))
         nsView = self.view.getNSView()
-        nsView.setFrame_(AppKit.NSMakeRect(0, 0, 185, 155))
+        nsView.setFrame_(AppKit.NSMakeRect(0, 0, 185, 165))
 
         self.view.gridText = vanilla.TextBox((10, 12, 100, 22), "Pixel Size:")
         self.view.gridInput = vanilla.EditText((120, 10, -10, 22), self.tool.size, callback=self.gridInputCallback)
@@ -115,7 +115,6 @@ class PixelTool(BaseEventTool):
         self.useGrid = getExtensionDefault(USEGRID_DEFAULT_KEY, True)
 
     def mouseDown(self, point, offset):
-
         glyph = self.getGlyph()
 
         found = self.findObjectInGlyphForPoint(glyph, point)
@@ -132,9 +131,9 @@ class PixelTool(BaseEventTool):
             # add a square around a point
             self.actionMode = ADD_ACTION_MODE
             self.addShapeInGlyphForPoint(glyph, point)
-
-    def rightMouseDown(self, point, event):
-        GridSettingsMenu(self, event, self.getNSView())
+    
+    def _rightMouseDown(self, point, event):
+        GridSettingsMenu(self, event, self.getNSView())        
 
     def mouseDragged(self, point, delta):
         glyph = self.getGlyph()
