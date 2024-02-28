@@ -1,0 +1,13 @@
+name: PixelTool
+developer: TypeMyType
+developerURL: http://www.typemytype.com
+launchAtStartUp: true
+mainScript: PixelTool.py
+version: 1.6.3
+addToMenu:
+- path: generateImageFont.py
+  preferredName: Export Font to Bitmaps
+  shortKey: ''
+html: true
+requiresVersionMajor: '3'
+requiresVersionMinor: '2'
