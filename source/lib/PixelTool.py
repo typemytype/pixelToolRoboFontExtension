@@ -17,7 +17,7 @@ from generateImages import AddPixelToolRepresentationFactory
 
 AddPixelToolRepresentationFactory()
 
-pixelBundle = ExtensionBundle("PixelTool")
+pixelBundle = ExtensionBundle("Pixel Tool")
 pixelCursor = CreateCursor(pixelBundle.get("pixelCursor"), hotSpot=(1, 19))
 pixelToolbarIcon = pixelBundle.get("pixelToolbarIcon")
 
@@ -131,9 +131,9 @@ class PixelTool(BaseEventTool):
             # add a square around a point
             self.actionMode = ADD_ACTION_MODE
             self.addShapeInGlyphForPoint(glyph, point)
-    
+
     def _rightMouseDown(self, point, event):
-        GridSettingsMenu(self, event, self.getNSView())        
+        GridSettingsMenu(self, event, self.getNSView())
 
     def mouseDragged(self, point, delta):
         glyph = self.getGlyph()
@@ -161,7 +161,7 @@ class PixelTool(BaseEventTool):
             for component in glyph.components:
                 if component.baseGlyph != self.componentName:
                     continue
-                if pointInRect((x, y), component.bounds):
+                if component.bounds and pointInRect((x, y), component.bounds):
                     found = component
                     break
         else:
