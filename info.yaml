@@ -3,7 +3,7 @@ developer: TypeMyType
 developerURL: http://www.typemytype.com
 launchAtStartUp: true
 mainScript: PixelTool.py
-version: 1.6.3
+version: 1.6.4
 addToMenu:
 - path: generateImageFont.py
   preferredName: Export Font to Bitmaps
