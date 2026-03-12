@@ -17,15 +17,29 @@ Usage
 
 <img src="PixelTool.png" alt="drawing" width="100%"/>
 
-- Cpen the Glyph Editor
-- Click on the PixelTool icon in the toolbar to activate it.
+- Open the Glyph Editor
+- Click on the Pixel Tool icon in the toolbar to activate it.
 
+### Drawing Pixels
+- Left-click on empty space in the Glyph Editor to add a pixel. 
+- Click and drag to continue drawing pixels.
+- Left-click on existing pixels to remove them.
 
-### Actions
+### Settings
 
-The following actions are supported:
+#### Use Grid: 
 
-| Action | Description
-|-|-|
-| Click | Draw pixels using the current settings |
-| Right-Click | Open a window to edit the current pixel settings: size, shape, alignment |
+Pixel Tool has the ability to react to your native RoboFont preference setting for "Grid Size".
+
+- **Position:** Activating this setting forces all new pixels to align their origin (bottom-left) to grid intersections.
+- **Size:**  Activating this setting forces all new pixels to be sized like one cell in the grid.
+
+#### Size: 
+
+You can set your own pixel width and height manually here.
+
+#### Shape: 
+
+- **Rectangle**
+- **Oval**
+- **Component:** Pixel Tool will draw a component which references the **Base Glyph** name provided.
