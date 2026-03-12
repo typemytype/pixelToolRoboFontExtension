@@ -205,10 +205,11 @@ class PixelTool(BaseEventTool):
             self.addShapeInGlyphForPoint(glyph, point)
 
     def _rightMouseDown(self, point, event):
-        view = self.getNSView()
-        point = view.window().mouseLocationOutsideOfEventStream()
-        x, y = view.convertPoint_fromView_(point, None)
-        GridSettingsPopoverController(view, (x, y))
+        # view = self.getNSView()
+        # point = view.window().mouseLocationOutsideOfEventStream()
+        # x, y = view.convertPoint_fromView_(point, None)
+        # GridSettingsPopoverController(view, (x, y))
+        GridSettingsMenu(self, event, self.getNSView())
 
     def mouseDragged(self, point, delta):
         glyph = self.getGlyph()
@@ -280,19 +281,19 @@ class PixelTool(BaseEventTool):
                 r = .42
 
             pen.beginPath()
-            pen.addPoint(_roundPoint(x + hw, y), segmentType)
+            pen.addPoint(_roundPoint(x + hw, y), segmentType, smooth=True)
             pen.addPoint(_roundPoint(x + hw + hw * r, y))
             pen.addPoint(_roundPoint(x + w, y + hh - hh * r))
 
-            pen.addPoint(_roundPoint(x + w, y + hh), segmentType)
+            pen.addPoint(_roundPoint(x + w, y + hh), segmentType, smooth=True)
             pen.addPoint(_roundPoint(x + w, y + hh + hh * r))
             pen.addPoint(_roundPoint(x + hw + hw * r, y + h))
 
-            pen.addPoint(_roundPoint(x + hw, y + h), segmentType)
+            pen.addPoint(_roundPoint(x + hw, y + h), segmentType, smooth=True)
             pen.addPoint(_roundPoint(x + hw - hw * r, y + h))
             pen.addPoint(_roundPoint(x, y + hh + hh * r))
 
-            pen.addPoint(_roundPoint(x, y + hh), segmentType)
+            pen.addPoint(_roundPoint(x, y + hh), segmentType, smooth=True)
             pen.addPoint(_roundPoint(x, y + hh - hh * r))
             pen.addPoint(_roundPoint(x + hw - hw * r, y))
 
