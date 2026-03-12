@@ -1,6 +1,7 @@
 import AppKit
 from math import floor
 import vanilla
+import ezui
 import os
 
 from fontTools.misc.arrayTools import pointInRect
@@ -26,7 +27,78 @@ def _roundPoint(x, y):
     return int(round(x)), int(round(y))
 
 
+class GridSettingsPopoverController(ezui.WindowController):
+
+    def build(self, parent, location):
+        self.x, self.y = location
+        content = """
+        !§ Pixel Tool Settings
+        
+        ---
+        
+        * TwoColumnForm       @form
+        
+        > : Use Grid:
+        > [X] Position        @useGridPosition
+        > [X] Size            @useGridSize
+        
+        > : Size:             @sizeLabel
+        > * HorizontalStack   @pixelSizeStack
+        >> [_100_] w          @pixelWidth
+        >> [_100_] h          @pixelHeight 
+        
+        > : Shape:
+        > (X) Rectangle       @pixelShape
+        > ( ) Oval
+        > ( ) Component
+        
+        > : Base Glyph:       @baseGlyphLabel
+        > [_pixel_]           @baseGlyph
+        """
+        descriptionData = dict(
+            form=dict(
+                titleColumnWidth=80,
+                itemColumnWidth=140,
+            ),
+            pixelSizeStack=dict(
+                distribution="fillEqually",
+            ),
+            pixelWidth=dict(
+                width="fill",
+                valueType="integer",
+            ),
+            pixelHeight=dict(
+                width="fill",
+                valueType="integer",
+            ),
+        )
+        self.w = ezui.EZPopover(
+            content=content,
+            descriptionData=descriptionData,
+            parent=parent,
+            # parentAlignment="top",
+            # behavior="transient",
+            controller=self,
+            size="auto"
+        )
+        self.formCallback(self.w.getItem("form"))
+
+    def started(self):
+        self.w.open(location=(self.x - 5, self.y - 5, 10, 10))
+
+    def formCallback(self, sender):
+        settings = sender.getItemValues()
+        # Gray out the pixel size settings if "Use Grid Size" or "Component" are active.
+        for identifier in ["pixelWidth", "pixelHeight"]:
+            states = [not self.w.getItem("useGridSize").get(), not self.w.getItem("pixelShape").get() == 2]
+            self.w.getItem(identifier).enable(not False in states)
+        # Gray out the base glyph text field if "Component" isn’t selected.
+        self.w.getItem("baseGlyph").enable(self.w.getItem("pixelShape").get() == 2)
+
+
 class GridSettingsMenu(object):
+
+    '''Deprecated'''
 
     def __init__(self, tool, event, view):
         self.tool = tool
@@ -133,7 +205,10 @@ class PixelTool(BaseEventTool):
             self.addShapeInGlyphForPoint(glyph, point)
 
     def _rightMouseDown(self, point, event):
-        GridSettingsMenu(self, event, self.getNSView())
+        view = self.getNSView()
+        point = view.window().mouseLocationOutsideOfEventStream()
+        x, y = view.convertPoint_fromView_(point, None)
+        GridSettingsPopoverController(view, (x, y))
 
     def mouseDragged(self, point, delta):
         glyph = self.getGlyph()
