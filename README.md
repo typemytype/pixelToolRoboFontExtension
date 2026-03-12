@@ -24,6 +24,8 @@ When installed, Pixel Tool becomes available from the Glyph Editor’s toolbar.
 
 ### Settings
 
+Right-click while the Pixel Tool is active to edit the settings.
+
 #### Use Grid: 
 
 Pixel Tool has the ability to react to your native RoboFont preference setting for "Grid Size".
