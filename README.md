@@ -1,21 +1,18 @@
-Pixel Tool
-=========
+# Pixel Tool
 
 An interactive tool to draw ‘pixels’ using rectangles, ovals or components.
 
 <img src="PixelToolMechanicIcon.png" alt="drawing" width="64px"/>
 
-Installation
-------------
+## Installation
 
 Download and double-click the `.roboFontExt` file to install manually, or get it via [Mechanic 2](http://robofontmechanic.com/).
 
 When installed, Pixel Tool becomes available from the Glyph Editor’s toolbar.
 
-Usage
------
-
 <img src="PixelTool.png" alt="drawing" width="100%"/>
+
+## Usage
 
 - Open the Glyph Editor
 - Click on the Pixel Tool icon in the toolbar to activate it.
