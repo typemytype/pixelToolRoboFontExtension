@@ -35,9 +35,10 @@ class GenerateImageFont(object):
 
         glyphs = [g for g in f if not g.template]
 
-        progress = ProgressWindow("Generating .png's", tickCount=len(glyphs), parentWindow=self.window)
+        progress = ProgressWindow("Generating PNGs", tickCount=len(glyphs), parentWindow=self.window)
 
-        gridSize = int(getExtensionDefault(GRID_DEFAULTS_KEY, 50))
+        gridSizeX = int(getExtensionDefault(EXT_KEY, DEFAULTS)["pixelWidth"])
+        gridSizeY = int(getExtensionDefault(EXT_KEY, DEFAULTS)["pixelHeight"])
 
         for g in glyphs:
             if g.unicode is not None:
@@ -46,7 +47,7 @@ class GenerateImageFont(object):
                 fileName = glyphNameToFileName(g.name, f)
             path = os.path.join(saveDir, "%s.png" % fileName)
 
-            image = g.getRepresentation("com.typemytype.pixelImageFactory", gridSize=gridSize)
+            image = g.getRepresentation("com.typemytype.pixelImageFactory", gridSizeX=gridSizeX, gridSizeY=gridSizeY)
             data = image.TIFFRepresentation()
             imageRep = AppKit.NSBitmapImageRep.imageRepWithData_(data)
             pngData = imageRep.representationUsingType_properties_(AppKit.NSPNGFileType, None)
