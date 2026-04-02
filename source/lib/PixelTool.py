@@ -14,25 +14,14 @@ from mojo.UI import getDefault, setDefault, preferencesChanged
 
 from generateImages import AddPixelToolRepresentationFactory
 
+from settings import *
+
 
 AddPixelToolRepresentationFactory()
 
 pixelBundle = ExtensionBundle("Pixel Tool")
 pixelCursor = CreateCursor(pixelBundle.get("pixelCursor"), hotSpot=(1, 19))
 pixelToolbarIcon = pixelBundle.get("pixelToolbarIcon")
-
-ADD_ACTION_MODE = "Adding"
-REMOVE_ACTION_MODE = "Removing"
-DRAWING_MODES = ["Rectangle", "Oval", "Component"]
-EXT_KEY = "com.typemytype.pixelTool"
-DEFAULTS = {
-    "pixelWidth": 50,
-    "pixelHeight": 50,
-    "useGridPosition": True,
-    "useGridSize": True,
-    "pixelShape": 0,
-    "baseGlyph": "pixel",
-}
 
 
 def _roundPoint(x, y):
